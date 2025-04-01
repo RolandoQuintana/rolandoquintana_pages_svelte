@@ -2,35 +2,12 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<!-- Debug mode script -->
-		<script>
-			window.DEBUG_MODE = true;
-			window.onerror = function(message, source, lineno, colno, error) {
-				console.error('Error:', message, 'at', source, lineno, colno);
-				if (document.getElementById('appLoading')) {
-					document.getElementById('appLoading').innerHTML = `
-						<h1>Error Loading Portfolio</h1>
-						<p>There was a problem loading the site. Please try refreshing the page.</p>
-						<p style="font-size: 0.8rem; margin-top: 1rem;">Error: ${message}</p>
-						<p style="font-size: 0.8rem;">Source: ${source}</p>
-						<button onclick="window.location.reload()" style="margin-top: 1rem; background: #00FFA3; color: #000; border: none; padding: 0.5rem 1rem; border-radius: 0.25rem; cursor: pointer;">Reload Page</button>
-					`;
-				}
-				return true;
-			};
-		</script>
-
-		<!-- Path correction for GitHub Pages - MUST be early -->
-		<script src="/rolandoquintana_pages_svelte/fix-paths.js"></script>
-
-		<!-- Custom SvelteKit module loader -->
-		<script src="/rolandoquintana_pages_svelte/main.js"></script>
-
 		<link rel="icon" href="/rolandoquintana_pages_svelte/favicon.png" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+		<base href="/rolandoquintana_pages_svelte/">
 
 		<!-- Custom loading state -->
 		<style>
@@ -68,15 +45,16 @@
 				100% { transform: translateX(100%); }
 			}
 		</style>
-
-		<link rel="modulepreload" href="/rolandoquintana_pages_svelte/_app/immutable/entry/start.DZtUvQbl.js">
-		<link rel="modulepreload" href="/rolandoquintana_pages_svelte/_app/immutable/chunks/W7dolCZE.js">
-		<link rel="modulepreload" href="/rolandoquintana_pages_svelte/_app/immutable/chunks/BEXfOjdy.js">
-		<link rel="modulepreload" href="/rolandoquintana_pages_svelte/_app/immutable/chunks/BpCh3IZ6.js">
-		<link rel="modulepreload" href="/rolandoquintana_pages_svelte/_app/immutable/entry/app.DpuqOob4.js">
-		<link rel="modulepreload" href="/rolandoquintana_pages_svelte/_app/immutable/chunks/FMboxBTo.js">
-		<link rel="modulepreload" href="/rolandoquintana_pages_svelte/_app/immutable/chunks/CiqtYpDN.js">
-		<link rel="modulepreload" href="/rolandoquintana_pages_svelte/_app/immutable/chunks/G9bYwqTl.js">
+		
+		<link rel="modulepreload" href="/rolandoquintana_pages_svelte/_app/immutable/entry/start.B4NYn7jv.js">
+		<link rel="modulepreload" href="/rolandoquintana_pages_svelte/_app/immutable/chunks/BTfSzfw3.js">
+		<link rel="modulepreload" href="/rolandoquintana_pages_svelte/_app/immutable/chunks/Ck1EtuuH.js">
+		<link rel="modulepreload" href="/rolandoquintana_pages_svelte/_app/immutable/chunks/lfLra-qc.js">
+		<link rel="modulepreload" href="/rolandoquintana_pages_svelte/_app/immutable/chunks/zginz1Tv.js">
+		<link rel="modulepreload" href="/rolandoquintana_pages_svelte/_app/immutable/entry/app.DLslzAg4.js">
+		<link rel="modulepreload" href="/rolandoquintana_pages_svelte/_app/immutable/chunks/Da9mLH0J.js">
+		<link rel="modulepreload" href="/rolandoquintana_pages_svelte/_app/immutable/chunks/CFtzu8rP.js">
+		<link rel="modulepreload" href="/rolandoquintana_pages_svelte/_app/immutable/chunks/Ul45hT-2.js">
 	</head>
 	<body data-sveltekit-preload-data="hover">
 		<!-- Loading state (will be hidden when app loads) -->
@@ -89,52 +67,19 @@
 		<div style="display: contents">
 			<script>
 				{
-					try {
-						window.__sveltekit_1n1drg1 = {
-							base: "/rolandoquintana_pages_svelte",
-							assets: "/rolandoquintana_pages_svelte"
-						};
+					__sveltekit_184h9pb = {
+						base: "/rolandoquintana_pages_svelte",
+						assets: "/rolandoquintana_pages_svelte"
+					};
 
-						const element = document.currentScript.parentElement;
+					const element = document.currentScript.parentElement;
 
-						// The start and app modules are now preloaded by fix-paths.js
-						// This sets up a global callback for when those modules are ready
-						window.__sveltekit_init = function(kit, app) {
-							console.log("SvelteKit modules initialized");
-							try {
-								kit.start(app, element);
-							} catch (err) {
-								console.error("Error starting SvelteKit app:", err);
-								document.getElementById('appLoading').innerHTML = `
-									<h1>Error Starting Portfolio</h1>
-									<p>There was a problem starting the application. Please try refreshing the page.</p>
-									<p style="font-size: 0.8rem; margin-top: 1rem;">Error: ${err.message}</p>
-									<button onclick="window.location.reload()" style="margin-top: 1rem; background: #00FFA3; color: #000; border: none; padding: 0.5rem 1rem; border-radius: 0.25rem; cursor: pointer;">Reload Page</button>
-								`;
-							}
-						};
-
-						// Fallback if modules don't initialize within 5 seconds
-						setTimeout(function() {
-							if (!window.__sveltekit_initialized) {
-								console.error("SvelteKit modules failed to initialize in time");
-								document.getElementById('appLoading').innerHTML = `
-									<h1>Portfolio Loading Timeout</h1>
-									<p>The site is taking longer than expected to load.</p>
-									<button onclick="window.location.reload()" style="margin-top: 1rem; background: #00FFA3; color: #000; border: none; padding: 0.5rem 1rem; border-radius: 0.25rem; cursor: pointer;">Reload Page</button>
-									<p style="font-size: 0.8rem; margin-top: 1rem;"><a href="https://github.com/RolandoQuintana/rolandoquintana_pages_svelte" style="color: #00FFA3;">View on GitHub</a></p>
-								`;
-							}
-						}, 5000);
-					} catch (error) {
-						console.error('Error in SvelteKit initialization:', error);
-						document.getElementById('appLoading').innerHTML = `
-							<h1>Error Loading Portfolio</h1>
-							<p>There was a problem initializing the site. Please try refreshing the page.</p>
-							<p style="font-size: 0.8rem; margin-top: 1rem;">Error: ${error.message}</p>
-							<button onclick="window.location.reload()" style="margin-top: 1rem; background: #00FFA3; color: #000; border: none; padding: 0.5rem 1rem; border-radius: 0.25rem; cursor: pointer;">Reload Page</button>
-						`;
-					}
+					Promise.all([
+						import("/rolandoquintana_pages_svelte/_app/immutable/entry/start.B4NYn7jv.js"),
+						import("/rolandoquintana_pages_svelte/_app/immutable/entry/app.DLslzAg4.js")
+					]).then(([kit, app]) => {
+						kit.start(app, element);
+					});
 				}
 			</script>
 		</div>
