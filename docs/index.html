@@ -42,12 +42,16 @@
 				justify-content: center;
 				flex-direction: column;
 				opacity: 1;
-				transition: opacity 0.5s ease;
+				transition: opacity 0.5s ease, visibility 0.5s ease;
 				font-family: 'Space Grotesk', sans-serif;
+				z-index: 10000;
+				visibility: visible;
 			}
 			.app-loading.hidden {
 				opacity: 0;
 				pointer-events: none;
+				visibility: hidden;
+				display: none; /* Ensure it's fully removed after transition */
 			}
 			.app-loading h1 {
 				font-size: 2.5rem;
@@ -166,14 +170,44 @@
 			// Hide loading screen when app is initialized
 			window.addEventListener('sveltekit:start', () => {
 				console.log('SvelteKit started event received');
-				setTimeout(() => {
-					const appLoading = document.getElementById('appLoading');
-					if (appLoading) {
-						appLoading.classList.add('hidden');
-						console.log('Loading screen hidden');
-					}
-				}, 500);
+				hideLoadingScreen();
 			});
+
+			// Also hide loading screen after a fixed timeout as fallback
+			setTimeout(hideLoadingScreen, 5000);
+
+			// Add manual hide button for emergency use
+			setTimeout(() => {
+				const appLoading = document.getElementById('appLoading');
+				if (appLoading && !appLoading.classList.contains('hidden')) {
+					const hideButton = document.createElement('button');
+					hideButton.textContent = 'Hide Loading Screen';
+					hideButton.style.marginTop = '2rem';
+					hideButton.style.padding = '0.5rem 1rem';
+					hideButton.style.background = '#00FFA3';
+					hideButton.style.color = '#000';
+					hideButton.style.border = 'none';
+					hideButton.style.borderRadius = '0.25rem';
+					hideButton.style.cursor = 'pointer';
+					hideButton.onclick = hideLoadingScreen;
+					appLoading.appendChild(hideButton);
+				}
+			}, 8000);
+
+			function hideLoadingScreen() {
+				const appLoading = document.getElementById('appLoading');
+				if (appLoading && !appLoading.classList.contains('hidden')) {
+					appLoading.classList.add('hidden');
+					console.log('Loading screen hidden');
+
+					// Force hide after transition
+					setTimeout(() => {
+						if (appLoading) {
+							appLoading.style.display = 'none';
+						}
+					}, 600);
+				}
+			}
 		</script>
 	</body>
 </html>
