@@ -19,7 +19,7 @@ const config = {
 			strict: true
 		}),
 		paths: {
-			base: process.env.NODE_ENV === 'production' ? '/rolandoquintana_pages_svelte' : ''
+			base: '/rolandoquintana_pages_svelte'
 		}
 	}
 };
