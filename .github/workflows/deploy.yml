@@ -35,17 +35,17 @@ jobs:
         run: npm ci
 
       - name: Build
-        run: npm run build
+        run: npm run build:docs
         env:
           NODE_ENV: production
 
-      - name: List build output directory
-        run: ls -la build
+      - name: List output directory
+        run: ls -la docs
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './build'
+          path: './docs'
 
       - name: Deploy to GitHub Pages
         id: deployment
