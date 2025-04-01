@@ -14,12 +14,13 @@ const config = {
 		adapter: adapter({
 			pages: 'docs',
 			assets: 'docs',
-			fallback: 'index.html',
+			fallback: null,
 			precompress: false,
-			strict: true
+			strict: false
 		}),
 		paths: {
-			base: '/rolandoquintana_pages_svelte'
+			base: '/rolandoquintana_pages_svelte',
+			relative: false
 		}
 	}
 };
