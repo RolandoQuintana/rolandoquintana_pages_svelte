@@ -1,0 +1,131 @@
+<section id="welcome" class="hero">
+  <div class="hero-content">
+    <span class="identifier">• 001 ROLANDO D QUINTANA</span>
+    <div class="title-box">
+      <ScrambleText
+        text={heroSlides[0].title}
+        targetText={currentTitle}
+        speed={1.5}
+        pauseDelay={100}
+        className="title-text"
+      />
+    </div>
+    <p class="subtitle">{subtitle}</p>
+  </div>
+  <div class="hero-background">
+    {#each heroSlides as slide, i}
+      <div
+        class="slide-image"
+        class:active={i === currentSlideIndex}
+        style="background-image: url({slide.imageUrl})"
+      ></div>
+    {/each}
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    height: 100vh;
+    display: flex;
+    align-items: flex-start;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    padding-left: clamp(2rem, 5vw, 6%);
+    padding-top: 25vh;
+    height: 100%;
+  }
+
+  .identifier {
+    display: block;
+    font-size: clamp(0.75rem, 1.5vw, 0.875rem);
+    letter-spacing: 0.1em;
+    margin-bottom: clamp(1rem, 3vw, 2rem);
+    opacity: 0.7;
+  }
+
+  .title-box {
+    height: 300px;
+    margin-bottom: 30px;
+  }
+
+  .subtitle {
+    font-size: clamp(1.2rem, 2.5vw, 1.75rem);
+    opacity: 0.8;
+    font-weight: 400;
+    margin: 0;
+    max-width: 550px;
+    line-height: 1.4;
+  }
+
+  .title-text {
+    font-size: clamp(9rem, 14vw, 16rem) !important;
+    line-height: 0.85;
+    font-weight: 800;
+    margin: 0;
+    letter-spacing: -0.01em;
+    white-space: pre-line;
+  }
+
+  @media (max-width: 1200px) {
+    .title-box {
+      height: 280px;
+    }
+
+    .subtitle {
+      max-width: 500px;
+    }
+  }
+
+  @media (max-width: 992px) {
+    .title-box {
+      height: 240px;
+    }
+
+    .subtitle {
+      max-width: 450px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hero-content {
+      padding-top: 20vh;
+    }
+
+    .title-box {
+      height: 180px;
+    }
+
+    .subtitle {
+      max-width: 350px;
+    }
+
+    .title-text {
+      font-size: clamp(5rem, 12vw, 9rem) !important;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero-content {
+      padding-top: 15vh;
+    }
+
+    .title-box {
+      height: 150px;
+    }
+
+    .subtitle {
+      max-width: 280px;
+    }
+
+    .title-text {
+      font-size: clamp(3.5rem, 10vw, 7rem) !important;
+    }
+  }
+</style>
