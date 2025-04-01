@@ -1,75 +1,80 @@
 <script lang="ts">
+  import { base } from '$app/paths';
+
   export let title: string;
   export let description: string;
   export let link: string;
+
+  // Add base path to the link if it's a relative path and doesn't start with #
+  $: processedLink = link.startsWith('/') ? `${base}${link}` : link;
 </script>
 
-<a href={link} class="gradient-card">
-  <div class="content">
+<div class="card">
+  <div class="card-content">
     <h3>{title}</h3>
     <p>{description}</p>
+    <a href={processedLink} class="card-link">View Project</a>
   </div>
-  <div class="gradient-border"></div>
-</a>
+</div>
 
 <style>
-  .gradient-card {
-    position: relative;
-    display: block;
-    padding: clamp(1rem, 3vw, 1.5rem);
+  .card {
     background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 1rem;
-    text-decoration: none;
-    color: var(--text-color);
-    transition: transform 0.3s ease;
     overflow: hidden;
-    height: 100%;
-  }
-
-  .gradient-card:hover {
-    transform: translateY(-5px);
-  }
-
-  .content {
     position: relative;
-    z-index: 1;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(45deg, rgba(0, 255, 163, 0.2), transparent);
+    border-radius: 1rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  .card:hover::before {
+    opacity: 1;
+  }
+
+  .card-content {
+    padding: clamp(1.5rem, 3vw, 2rem);
+    position: relative;
+    z-index: 2;
   }
 
   h3 {
-    font-size: clamp(1.25rem, 3vw, 1.5rem);
-    margin-bottom: 0.5rem;
-    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+    margin-bottom: 1rem;
+    color: var(--secondary-color);
   }
 
   p {
-    font-size: clamp(0.875rem, 2vw, 1rem);
+    margin-bottom: clamp(1.5rem, 3vw, 2rem);
     opacity: 0.8;
-    line-height: 1.5;
   }
 
-  .gradient-border {
-    position: absolute;
-    inset: 0;
-    border-radius: 1rem;
-    padding: 1px;
-    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events: none;
+  .card-link {
+    display: inline-block;
+    background: rgba(0, 255, 163, 0.1);
+    color: var(--secondary-color);
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    text-decoration: none;
+    border: 1px solid rgba(0, 255, 163, 0.3);
+    transition: background 0.3s ease;
   }
 
-  @media (max-width: 480px) {
-    .gradient-card {
-      padding: 1rem;
-    }
-
-    h3 {
-      margin-bottom: 0.3rem;
-    }
+  .card-link:hover {
+    background: rgba(0, 255, 163, 0.2);
   }
 </style>

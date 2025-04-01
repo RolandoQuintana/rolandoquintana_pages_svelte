@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount, onDestroy } from 'svelte';
+  import { base } from '$app/paths';
   import GradientCard from '$lib/components/GradientCard.svelte';
   import Navbar from '$lib/components/Navbar.svelte';
   import ScrambleText from '$lib/components/ScrambleText.svelte';
@@ -13,19 +14,19 @@
   const heroSlides = [
     {
       title: 'SOFTWARE\nDEVELOPER.',
-      imageUrl: '/slide1.jpg'
+      imageUrl: `${base}/slide1.jpg`
     },
     {
       title: 'PRODUCT\nDESIGNER.',
-      imageUrl: '/slide2.jpg'
+      imageUrl: `${base}/slide2.jpg`
     },
     {
       title: 'TECH\nINNOVATOR.',
-      imageUrl: '/slide3.jpg'
+      imageUrl: `${base}/slide3.jpg`
     },
     {
       title: 'CREATIVE\nTHINKER.',
-      imageUrl: '/slide4.jpg'
+      imageUrl: `${base}/slide4.jpg`
     }
   ];
 
