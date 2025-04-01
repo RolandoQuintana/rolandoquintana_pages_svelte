@@ -133,7 +133,7 @@
       <div class="about-text">
         <p>
           I am a software developer with a keen eye for design and a passion for creating seamless user experiences.
-          With expertise in Flutter, React, and modern web technologies, I bring ideas to life through clean,
+          With expertise in Flutter and modern web technologies, I bring ideas to life through clean,
           efficient code and intuitive interfaces.
         </p>
       </div>
