@@ -7,6 +7,10 @@
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+		<base href="/rolandoquintana_pages_svelte/">
+
+		<!-- Path correction for GitHub Pages -->
+		<script src="/rolandoquintana_pages_svelte/fix-paths.js"></script>
 
 		<!-- Custom loading state -->
 		<style>
@@ -44,12 +48,12 @@
 				100% { transform: translateX(100%); }
 			}
 		</style>
-		
-		<link rel="modulepreload" href="/rolandoquintana_pages_svelte/_app/immutable/entry/start.C8XBMz7n.js">
-		<link rel="modulepreload" href="/rolandoquintana_pages_svelte/_app/immutable/chunks/gssHjMVg.js">
+
+		<link rel="modulepreload" href="/rolandoquintana_pages_svelte/_app/immutable/entry/start.DZtUvQbl.js">
+		<link rel="modulepreload" href="/rolandoquintana_pages_svelte/_app/immutable/chunks/W7dolCZE.js">
 		<link rel="modulepreload" href="/rolandoquintana_pages_svelte/_app/immutable/chunks/BEXfOjdy.js">
 		<link rel="modulepreload" href="/rolandoquintana_pages_svelte/_app/immutable/chunks/BpCh3IZ6.js">
-		<link rel="modulepreload" href="/rolandoquintana_pages_svelte/_app/immutable/entry/app.uDFdolp4.js">
+		<link rel="modulepreload" href="/rolandoquintana_pages_svelte/_app/immutable/entry/app.DpuqOob4.js">
 		<link rel="modulepreload" href="/rolandoquintana_pages_svelte/_app/immutable/chunks/FMboxBTo.js">
 		<link rel="modulepreload" href="/rolandoquintana_pages_svelte/_app/immutable/chunks/CiqtYpDN.js">
 		<link rel="modulepreload" href="/rolandoquintana_pages_svelte/_app/immutable/chunks/G9bYwqTl.js">
@@ -65,7 +69,7 @@
 		<div style="display: contents">
 			<script>
 				{
-					__sveltekit_1xelrm8 = {
+					__sveltekit_1n1drg1 = {
 						base: "/rolandoquintana_pages_svelte",
 						assets: "/rolandoquintana_pages_svelte"
 					};
@@ -73,10 +77,17 @@
 					const element = document.currentScript.parentElement;
 
 					Promise.all([
-						import("/rolandoquintana_pages_svelte/_app/immutable/entry/start.C8XBMz7n.js"),
-						import("/rolandoquintana_pages_svelte/_app/immutable/entry/app.uDFdolp4.js")
+						import("/rolandoquintana_pages_svelte/_app/immutable/entry/start.DZtUvQbl.js"),
+						import("/rolandoquintana_pages_svelte/_app/immutable/entry/app.DpuqOob4.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element);
+					}).catch(error => {
+						console.error('Failed to load SvelteKit modules:', error);
+						document.getElementById('appLoading').innerHTML = `
+							<h1>Error Loading Portfolio</h1>
+							<p>There was a problem loading the site. Please try refreshing the page.</p>
+							<p style="font-size: 0.8rem; margin-top: 1rem;">Technical details: ${error.message}</p>
+						`;
 					});
 				}
 			</script>
