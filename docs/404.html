@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page Not Found</title>
+  <script>
+    // This script takes the current URL path and converts it to a hash route
+    // that the SPA can handle
+    (function() {
+      var segmentCount = 1; // Number of segments in your path to ignore (e.g., /username/repo/)
+      var basePath = '/rolandoquintana_pages_svelte';
+      var l = window.location;
+
+      // GitHub Pages serves 404s with ?p=/the/path/that/was/requested
+      // If not, we'll use pathname
+      var requestedPath = l.search.split('?p=')[1] || l.pathname.slice(basePath.length);
+
+      if (requestedPath.indexOf('/') === 0) {
+        requestedPath = requestedPath.slice(1);
+      }
+
+      // If we're not already on the homepage or it's not a JS/CSS request
+      if (l.pathname !== basePath + '/' &&
+          l.pathname !== basePath + '/index.html' &&
+          !l.pathname.match(/\.(js|css|png|jpg|jpeg|gif|webp|svg|ico)$/i)) {
+
+        console.log("Redirecting from 404 to home with hash path: " + requestedPath);
+        window.location.href = basePath + '/#/' + requestedPath;
+      } else {
+        // If it's a static asset that wasn't found, let's show a nice 404 page
+        document.addEventListener('DOMContentLoaded', function() {
+          document.body.className = 'loaded';
+        });
+      }
+    })();
+  </script>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      background: #000000;
+      color: #ffffff;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    body.loaded {
+      opacity: 1;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      color: #00FFA3;
+    }
+
+    p {
+      font-size: 1.25rem;
+      max-width: 600px;
+      margin: 1rem 0;
+    }
+
+    a {
+      color: #00FFA3;
+      text-decoration: none;
+      border: 1px solid #00FFA3;
+      padding: 0.75rem 1.5rem;
+      border-radius: 2rem;
+      margin-top: 2rem;
+      display: inline-block;
+      transition: background-color 0.3s ease;
+    }
+
+    a:hover {
+      background-color: rgba(0, 255, 163, 0.1);
+    }
+  </style>
+</head>
+<body>
+  <h1>404 - Page Not Found</h1>
+  <p>The page you're looking for doesn't exist or has been moved.</p>
+  <p>You will be automatically redirected to the home page...</p>
+  <a href="/rolandoquintana_pages_svelte/">Go Home</a>
+</body>
+</html>

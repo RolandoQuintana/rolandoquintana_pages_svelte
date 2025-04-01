@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Debug SvelteKit Loading</title>
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      background: #111;
+      color: #fff;
+      padding: 2rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .success { color: #0f0; }
+    .error { color: #f00; }
+    h1 { margin-bottom: 2rem; }
+    button {
+      padding: 0.5rem 1rem;
+      background: #333;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-bottom: 1rem;
+    }
+    pre {
+      background: #222;
+      padding: 1rem;
+      border-radius: 4px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+  <h1>SvelteKit Module Loading Debug</h1>
+
+  <button id="checkFiles">Check Module Files</button>
+  <button id="loadModules">Try Loading SvelteKit Modules</button>
+
+  <div id="output"></div>
+
+  <script>
+    const basePath = '/rolandoquintana_pages_svelte';
+    const output = document.getElementById('output');
+
+    function addMessage(message, isError = false) {
+      const el = document.createElement('p');
+      el.textContent = message;
+      el.className = isError ? 'error' : 'success';
+      output.appendChild(el);
+    }
+
+    function addPre(content) {
+      const pre = document.createElement('pre');
+      pre.textContent = content;
+      output.appendChild(pre);
+    }
+
+    document.getElementById('checkFiles').addEventListener('click', async () => {
+      addMessage('Checking if module files exist...');
+
+      const filesToCheck = [
+        '/_app/immutable/entry/start.B4NYn7jv.js',
+        '/_app/immutable/entry/app.DLslzAg4.js',
+        '/_app/immutable/chunks/BTfSzfw3.js',
+        '/_app/immutable/chunks/Ck1EtuuH.js'
+      ];
+
+      for (const file of filesToCheck) {
+        try {
+          const response = await fetch(basePath + file);
+          if (response.ok) {
+            addMessage(`✅ ${file} exists (status ${response.status})`);
+          } else {
+            addMessage(`❌ ${file} not found (status ${response.status})`, true);
+          }
+        } catch (err) {
+          addMessage(`❌ Error fetching ${file}: ${err.message}`, true);
+        }
+      }
+    });
+
+    document.getElementById('loadModules').addEventListener('click', async () => {
+      addMessage('Attempting to load SvelteKit modules...');
+
+      try {
+        const startModule = await import(basePath + '/_app/immutable/entry/start.B4NYn7jv.js');
+        addMessage('✅ Successfully loaded start module');
+        addPre('Start module contents: ' + JSON.stringify(startModule, null, 2));
+
+        const appModule = await import(basePath + '/_app/immutable/entry/app.DLslzAg4.js');
+        addMessage('✅ Successfully loaded app module');
+        addPre('App module contents: ' + JSON.stringify(appModule, null, 2));
+      } catch (err) {
+        addMessage(`❌ Error loading modules: ${err.message}`, true);
+        console.error(err);
+      }
+    });
+  </script>
+</body>
+</html>
