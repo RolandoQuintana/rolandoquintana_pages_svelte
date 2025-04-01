@@ -2,15 +2,32 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
+		<!-- Debug mode script -->
+		<script>
+			window.DEBUG_MODE = true;
+			window.onerror = function(message, source, lineno, colno, error) {
+				console.error('Error:', message, 'at', source, lineno, colno);
+				if (document.getElementById('appLoading')) {
+					document.getElementById('appLoading').innerHTML = `
+						<h1>Error Loading Portfolio</h1>
+						<p>There was a problem loading the site. Please try refreshing the page.</p>
+						<p style="font-size: 0.8rem; margin-top: 1rem;">Error: ${message}</p>
+						<p style="font-size: 0.8rem;">Source: ${source}</p>
+					`;
+				}
+				return true;
+			};
+		</script>
+
+		<!-- Path correction for GitHub Pages - MUST be early -->
+		<script src="/rolandoquintana_pages_svelte/fix-paths.js"></script>
+
 		<link rel="icon" href="/rolandoquintana_pages_svelte/favicon.png" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 		<base href="/rolandoquintana_pages_svelte/">
-
-		<!-- Path correction for GitHub Pages -->
-		<script src="/rolandoquintana_pages_svelte/fix-paths.js"></script>
 
 		<!-- Custom loading state -->
 		<style>
@@ -69,26 +86,45 @@
 		<div style="display: contents">
 			<script>
 				{
-					__sveltekit_1n1drg1 = {
-						base: "/rolandoquintana_pages_svelte",
-						assets: "/rolandoquintana_pages_svelte"
-					};
+					try {
+						__sveltekit_1n1drg1 = {
+							base: "/rolandoquintana_pages_svelte",
+							assets: "/rolandoquintana_pages_svelte"
+						};
 
-					const element = document.currentScript.parentElement;
+						const element = document.currentScript.parentElement;
+						const fullUrl = (path) => {
+							const baseUrl = window.location.origin + "/rolandoquintana_pages_svelte";
+							return baseUrl + path.replace(/^\/rolandoquintana_pages_svelte/, '');
+						};
 
-					Promise.all([
-						import("/rolandoquintana_pages_svelte/_app/immutable/entry/start.DZtUvQbl.js"),
-						import("/rolandoquintana_pages_svelte/_app/immutable/entry/app.DpuqOob4.js")
-					]).then(([kit, app]) => {
-						kit.start(app, element);
-					}).catch(error => {
-						console.error('Failed to load SvelteKit modules:', error);
+						console.log("Loading SvelteKit modules...");
+						console.log("Base URL:", window.location.origin + "/rolandoquintana_pages_svelte");
+
+						Promise.all([
+							import(fullUrl("/_app/immutable/entry/start.DZtUvQbl.js")),
+							import(fullUrl("/_app/immutable/entry/app.DpuqOob4.js"))
+						]).then(([kit, app]) => {
+							console.log("SvelteKit modules loaded successfully");
+							kit.start(app, element);
+						}).catch(error => {
+							console.error('Failed to load SvelteKit modules:', error);
+							document.getElementById('appLoading').innerHTML = `
+								<h1>Error Loading Portfolio</h1>
+								<p>There was a problem loading the site. Please try refreshing the page.</p>
+								<p style="font-size: 0.8rem; margin-top: 1rem;">Technical details: ${error.message}</p>
+								<button onclick="window.location.reload()" style="margin-top: 1rem; background: #00FFA3; color: #000; border: none; padding: 0.5rem 1rem; border-radius: 0.25rem; cursor: pointer;">Reload Page</button>
+							`;
+						});
+					} catch (error) {
+						console.error('Error in SvelteKit initialization:', error);
 						document.getElementById('appLoading').innerHTML = `
 							<h1>Error Loading Portfolio</h1>
-							<p>There was a problem loading the site. Please try refreshing the page.</p>
-							<p style="font-size: 0.8rem; margin-top: 1rem;">Technical details: ${error.message}</p>
+							<p>There was a problem initializing the site. Please try refreshing the page.</p>
+							<p style="font-size: 0.8rem; margin-top: 1rem;">Error: ${error.message}</p>
+							<button onclick="window.location.reload()" style="margin-top: 1rem; background: #00FFA3; color: #000; border: none; padding: 0.5rem 1rem; border-radius: 0.25rem; cursor: pointer;">Reload Page</button>
 						`;
-					});
+					}
 				}
 			</script>
 		</div>
