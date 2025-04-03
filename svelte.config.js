@@ -20,8 +20,7 @@ const config = {
 			strict: true
 		}),
 		paths: {
-			// Use empty base path for development, and the GitHub Pages path for production
-			base: dev ? '' : '/rolandoquintana_pages_svelte'
+			base: ''  // Empty base path since we're using a custom domain
 		},
 		prerender: {
 			handleMissingId: 'ignore'
