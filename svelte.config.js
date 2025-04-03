@@ -14,8 +14,9 @@ const config = {
 			strict: true
 		}),
 		paths: {
-			base: ''
+			base: process.env.NODE_ENV === 'production' ? '' : ''
 		},
+		appDir: 'app',
 		prerender: {
 			handleHttpError: ({ path, referrer, message }) => {
 				// Ignore static asset 404s since they'll be available after build
