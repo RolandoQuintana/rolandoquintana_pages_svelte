@@ -1,7 +1,10 @@
 import { defineConfig } from "tinacms";
 
+const isProduction = process.env.NODE_ENV === 'production';
+const branch = isProduction ? 'main' : 'dev';
+
 export default defineConfig({
-  branch: process.env.NODE_ENV === 'production' ? 'main' : 'dev',
+  branch,
   clientId: process.env.TINA_CLIENT_ID || "",
   token: process.env.TINA_TOKEN || "",
   media: {
@@ -12,8 +15,9 @@ export default defineConfig({
   },
 
   build: {
-    outputFolder: "admin",
+    outputFolder: "static/admin",
     publicFolder: "static",
+    basePath: isProduction ? "/rolandoquintana_pages_svelte" : ""
   },
 
   schema: {
@@ -68,29 +72,33 @@ export default defineConfig({
             type: "image",
             name: "thumbnail",
             label: "Thumbnail",
-            required: true,
+            required: false,
           },
           {
             type: "string",
             name: "technologies",
             label: "Technologies",
             list: true,
+            required: false,
           },
           {
             type: "string",
             name: "githubUrl",
             label: "GitHub URL",
+            required: false,
           },
           {
             type: "string",
             name: "liveUrl",
             label: "Live URL",
+            required: false,
           },
           {
             type: "rich-text",
             name: "body",
             label: "Body",
             isBody: true,
+            required: false,
           },
         ],
       },

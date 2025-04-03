@@ -135,7 +135,7 @@ type PageConnection implements Connection {
 type Project implements Node & Document {
   title: String!
   description: String!
-  thumbnail: String!
+  thumbnail: String
   technologies: [String]
   githubUrl: String
   liveUrl: String

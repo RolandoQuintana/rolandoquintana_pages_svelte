@@ -247,7 +247,7 @@ export type Project = Node & Document & {
   __typename?: 'Project';
   title: Scalars['String']['output'];
   description: Scalars['String']['output'];
-  thumbnail: Scalars['String']['output'];
+  thumbnail?: Maybe<Scalars['String']['output']>;
   technologies?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   githubUrl?: Maybe<Scalars['String']['output']>;
   liveUrl?: Maybe<Scalars['String']['output']>;
@@ -450,7 +450,7 @@ export type SkillMutation = {
 
 export type PagePartsFragment = { __typename: 'Page', title: string, description: string, body?: any | null };
 
-export type ProjectPartsFragment = { __typename: 'Project', title: string, description: string, thumbnail: string, technologies?: Array<string | null> | null, githubUrl?: string | null, liveUrl?: string | null, body?: any | null };
+export type ProjectPartsFragment = { __typename: 'Project', title: string, description: string, thumbnail?: string | null, technologies?: Array<string | null> | null, githubUrl?: string | null, liveUrl?: string | null, body?: any | null };
 
 export type SkillPartsFragment = { __typename: 'Skill', title: string, category: string, proficiency: number, icon?: string | null };
 
@@ -478,7 +478,7 @@ export type ProjectQueryVariables = Exact<{
 }>;
 
 
-export type ProjectQuery = { __typename?: 'Query', project: { __typename: 'Project', id: string, title: string, description: string, thumbnail: string, technologies?: Array<string | null> | null, githubUrl?: string | null, liveUrl?: string | null, body?: any | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
+export type ProjectQuery = { __typename?: 'Query', project: { __typename: 'Project', id: string, title: string, description: string, thumbnail?: string | null, technologies?: Array<string | null> | null, githubUrl?: string | null, liveUrl?: string | null, body?: any | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
 
 export type ProjectConnectionQueryVariables = Exact<{
   before?: InputMaybe<Scalars['String']['input']>;
@@ -490,7 +490,7 @@ export type ProjectConnectionQueryVariables = Exact<{
 }>;
 
 
-export type ProjectConnectionQuery = { __typename?: 'Query', projectConnection: { __typename?: 'ProjectConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'ProjectConnectionEdges', cursor: string, node?: { __typename: 'Project', id: string, title: string, description: string, thumbnail: string, technologies?: Array<string | null> | null, githubUrl?: string | null, liveUrl?: string | null, body?: any | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
+export type ProjectConnectionQuery = { __typename?: 'Query', projectConnection: { __typename?: 'ProjectConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'ProjectConnectionEdges', cursor: string, node?: { __typename: 'Project', id: string, title: string, description: string, thumbnail?: string | null, technologies?: Array<string | null> | null, githubUrl?: string | null, liveUrl?: string | null, body?: any | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
 
 export type SkillQueryVariables = Exact<{
   relativePath: Scalars['String']['input'];
