@@ -1,7 +1,7 @@
+// tina/config.ts
 import { defineConfig } from "tinacms";
-
-export default defineConfig({
-  branch: process.env.NODE_ENV === 'production' ? 'main' : 'dev',
+var config_default = defineConfig({
+  branch: false ? "main" : "dev",
   clientId: process.env.TINA_CLIENT_ID || "",
   token: process.env.TINA_TOKEN || "",
   media: {
@@ -10,12 +10,10 @@ export default defineConfig({
       mediaRoot: "uploads"
     }
   },
-
   build: {
     outputFolder: "admin",
-    publicFolder: "static",
+    publicFolder: "static"
   },
-
   schema: {
     collections: [
       {
@@ -29,21 +27,21 @@ export default defineConfig({
             name: "title",
             label: "Title",
             isTitle: true,
-            required: true,
+            required: true
           },
           {
             type: "string",
             name: "description",
             label: "Description",
-            required: true,
+            required: true
           },
           {
             type: "rich-text",
             name: "body",
             label: "Body",
-            isBody: true,
-          },
-        ],
+            isBody: true
+          }
+        ]
       },
       {
         name: "project",
@@ -56,43 +54,43 @@ export default defineConfig({
             name: "title",
             label: "Title",
             isTitle: true,
-            required: true,
+            required: true
           },
           {
             type: "string",
             name: "description",
             label: "Description",
-            required: true,
+            required: true
           },
           {
             type: "image",
             name: "thumbnail",
             label: "Thumbnail",
-            required: true,
+            required: true
           },
           {
             type: "string",
             name: "technologies",
             label: "Technologies",
-            list: true,
+            list: true
           },
           {
             type: "string",
             name: "githubUrl",
-            label: "GitHub URL",
+            label: "GitHub URL"
           },
           {
             type: "string",
             name: "liveUrl",
-            label: "Live URL",
+            label: "Live URL"
           },
           {
             type: "rich-text",
             name: "body",
             label: "Body",
-            isBody: true,
-          },
-        ],
+            isBody: true
+          }
+        ]
       },
       {
         name: "skill",
@@ -105,27 +103,30 @@ export default defineConfig({
             name: "title",
             label: "Title",
             isTitle: true,
-            required: true,
+            required: true
           },
           {
             type: "string",
             name: "category",
             label: "Category",
-            required: true,
+            required: true
           },
           {
             type: "number",
             name: "proficiency",
             label: "Proficiency (0-100)",
-            required: true,
+            required: true
           },
           {
             type: "string",
             name: "icon",
-            label: "Icon",
-          },
-        ],
-      },
-    ],
-  },
+            label: "Icon"
+          }
+        ]
+      }
+    ]
+  }
 });
+export {
+  config_default as default
+};

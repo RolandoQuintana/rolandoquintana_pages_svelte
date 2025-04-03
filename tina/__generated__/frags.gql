@@ -1,0 +1,25 @@
+fragment PageParts on Page {
+  __typename
+  title
+  description
+  body
+}
+
+fragment ProjectParts on Project {
+  __typename
+  title
+  description
+  thumbnail
+  technologies
+  githubUrl
+  liveUrl
+  body
+}
+
+fragment SkillParts on Skill {
+  __typename
+  title
+  category
+  proficiency
+  icon
+}
