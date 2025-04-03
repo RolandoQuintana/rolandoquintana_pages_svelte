@@ -1,1 +1,0 @@
-var s;const e=((s=globalThis.__sveltekit_184h9pb)==null?void 0:s.base)??"/rolandoquintana_pages_svelte";var a;const t=((a=globalThis.__sveltekit_184h9pb)==null?void 0:a.assets)??e;export{t as a,e as b};

@@ -7,28 +7,7 @@
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-		<!-- Error tracking -->
-		<script>
-			window.onerror = function(message, source, lineno, colno, error) {
-				console.error('Global error:', message, source, lineno, colno, error);
-				var loadingEl = document.getElementById('appLoading');
-				if (loadingEl) {
-					loadingEl.innerHTML = `
-						<h1>Error Loading Portfolio</h1>
-						<p>There was a problem loading the site.</p>
-						<pre style="font-size: 0.8rem; text-align: left; max-width: 600px; margin: 1rem auto; background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 4px; overflow: auto;">Error: ${message}\nSource: ${source}\nLine: ${lineno}</pre>
-						<button onclick="window.location.reload()" style="background: #00FFA3; color: #000; border: none; padding: 0.5rem 1rem; border-radius: 0.25rem; cursor: pointer;">Reload Page</button>
-					`;
-				}
-				return true;
-			};
-
-			// Track unhandled promise rejections
-			window.addEventListener('unhandledrejection', function(event) {
-				console.error('Unhandled rejection:', event.reason);
-			});
-		</script>
+		<!-- Using SvelteKit's base path instead of hardcoded base href -->
 
 		<!-- Custom loading state -->
 		<style>
@@ -51,7 +30,7 @@
 				opacity: 0;
 				pointer-events: none;
 				visibility: hidden;
-				display: none; /* Ensure it's fully removed after transition */
+				display: none;
 			}
 			.app-loading h1 {
 				font-size: 2.5rem;
@@ -69,15 +48,21 @@
 				0% { transform: translateX(-100%); }
 				100% { transform: translateX(100%); }
 			}
+			#sveltekit-body {
+				opacity: 0;
+				transition: opacity 0.5s ease;
+			}
+			#sveltekit-body.visible {
+				opacity: 1;
+			}
 		</style>
-
-		<!-- Module preloads -->
-		<link rel="modulepreload" href="/rolandoquintana_pages_svelte/_app/immutable/entry/start.B4NYn7jv.js">
-		<link rel="modulepreload" href="/rolandoquintana_pages_svelte/_app/immutable/chunks/BTfSzfw3.js">
+		
+		<link rel="modulepreload" href="/rolandoquintana_pages_svelte/_app/immutable/entry/start.D-Pk3dnq.js">
+		<link rel="modulepreload" href="/rolandoquintana_pages_svelte/_app/immutable/chunks/Dv4oAuxN.js">
 		<link rel="modulepreload" href="/rolandoquintana_pages_svelte/_app/immutable/chunks/Ck1EtuuH.js">
-		<link rel="modulepreload" href="/rolandoquintana_pages_svelte/_app/immutable/chunks/lfLra-qc.js">
+		<link rel="modulepreload" href="/rolandoquintana_pages_svelte/_app/immutable/chunks/BQfyijY_.js">
 		<link rel="modulepreload" href="/rolandoquintana_pages_svelte/_app/immutable/chunks/zginz1Tv.js">
-		<link rel="modulepreload" href="/rolandoquintana_pages_svelte/_app/immutable/entry/app.DLslzAg4.js">
+		<link rel="modulepreload" href="/rolandoquintana_pages_svelte/_app/immutable/entry/app.Dz09V3_U.js">
 		<link rel="modulepreload" href="/rolandoquintana_pages_svelte/_app/immutable/chunks/Da9mLH0J.js">
 		<link rel="modulepreload" href="/rolandoquintana_pages_svelte/_app/immutable/chunks/CFtzu8rP.js">
 		<link rel="modulepreload" href="/rolandoquintana_pages_svelte/_app/immutable/chunks/Ul45hT-2.js">
@@ -90,78 +75,22 @@
 			<div class="loader"></div>
 		</div>
 
-		<div style="display: contents">
+		<div id="sveltekit-body">
 			<script>
 				{
-					try {
-						// Set up global config for SvelteKit
-						window.__sveltekit_184h9pb = {
-							base: "/rolandoquintana_pages_svelte",
-							assets: "/rolandoquintana_pages_svelte"
-						};
+					__sveltekit_78bdjw = {
+						base: "/rolandoquintana_pages_svelte",
+						assets: "/rolandoquintana_pages_svelte"
+					};
 
-						const element = document.currentScript.parentElement;
+					const element = document.currentScript.parentElement;
 
-						// Use full absolute URLs to avoid path issues
-						const origin = window.location.origin;
-						const basePath = '/rolandoquintana_pages_svelte';
-						const fullUrl = path => `${origin}${basePath}${path}`;
-
-						console.log('Loading SvelteKit with base:', basePath);
-						console.log('Current location:', window.location.href);
-
-						// Set a timeout to show an error if modules don't load in time
-						const loadTimeout = setTimeout(() => {
-							console.warn('Module loading timeout');
-							const appLoading = document.getElementById('appLoading');
-							if (appLoading && !window.__sveltekit_started) {
-								appLoading.innerHTML = `
-									<h1>Loading Timeout</h1>
-									<p>The site is taking longer than expected to load.</p>
-									<button onclick="window.location.reload()" style="margin-top: 1rem; background: #00FFA3; color: #000; border: none; padding: 0.5rem 1rem; border-radius: 0.25rem; cursor: pointer;">Reload Page</button>
-								`;
-							}
-						}, 10000);
-
-						// Load the modules
-						Promise.all([
-							import(fullUrl('/_app/immutable/entry/start.B4NYn7jv.js')),
-							import(fullUrl('/_app/immutable/entry/app.DLslzAg4.js'))
-						]).then(([kit, app]) => {
-							clearTimeout(loadTimeout);
-							console.log('SvelteKit modules loaded successfully');
-							window.__sveltekit_started = true;
-							kit.start(app, element);
-						}).catch(error => {
-							clearTimeout(loadTimeout);
-							console.error('Failed to load SvelteKit modules:', error);
-
-							const appLoading = document.getElementById('appLoading');
-							if (appLoading) {
-								appLoading.innerHTML = `
-									<h1>Error Loading Portfolio</h1>
-									<p>There was a problem loading the site components.</p>
-									<pre style="font-size: 0.8rem; text-align: left; max-width: 600px; margin: 1rem auto; background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 4px; overflow: auto;">${error.message}</pre>
-									<button onclick="window.location.reload()" style="background: #00FFA3; color: #000; border: none; padding: 0.5rem 1rem; border-radius: 0.25rem; cursor: pointer;">Reload Page</button>
-									<p style="margin-top: 1rem;">
-										<a href="/rolandoquintana_pages_svelte/debug.html" style="color: #00FFA3; text-decoration: underline;">Run Diagnostics</a>
-									</p>
-								`;
-							}
-						});
-					} catch (error) {
-						console.error('Error in SvelteKit initialization script:', error);
-
-						const appLoading = document.getElementById('appLoading');
-						if (appLoading) {
-							appLoading.innerHTML = `
-								<h1>Initialization Error</h1>
-								<p>There was a problem setting up the site.</p>
-								<pre style="font-size: 0.8rem; text-align: left; max-width: 600px; margin: 1rem auto; background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 4px; overflow: auto;">${error.message}</pre>
-								<button onclick="window.location.reload()" style="background: #00FFA3; color: #000; border: none; padding: 0.5rem 1rem; border-radius: 0.25rem; cursor: pointer;">Reload Page</button>
-							`;
-						}
-					}
+					Promise.all([
+						import("/rolandoquintana_pages_svelte/_app/immutable/entry/start.D-Pk3dnq.js"),
+						import("/rolandoquintana_pages_svelte/_app/immutable/entry/app.Dz09V3_U.js")
+					]).then(([kit, app]) => {
+						kit.start(app, element);
+					});
 				}
 			</script>
 		</div>
@@ -171,28 +100,22 @@
 			window.addEventListener('sveltekit:start', () => {
 				console.log('SvelteKit started event received');
 				hideLoadingScreen();
+				showContent();
+			});
+
+			// Hide loading screen and show content immediately for development
+			document.addEventListener('DOMContentLoaded', () => {
+				setTimeout(() => {
+					hideLoadingScreen();
+					showContent();
+				}, 1000);
 			});
 
 			// Also hide loading screen after a fixed timeout as fallback
-			setTimeout(hideLoadingScreen, 5000);
-
-			// Add manual hide button for emergency use
 			setTimeout(() => {
-				const appLoading = document.getElementById('appLoading');
-				if (appLoading && !appLoading.classList.contains('hidden')) {
-					const hideButton = document.createElement('button');
-					hideButton.textContent = 'Hide Loading Screen';
-					hideButton.style.marginTop = '2rem';
-					hideButton.style.padding = '0.5rem 1rem';
-					hideButton.style.background = '#00FFA3';
-					hideButton.style.color = '#000';
-					hideButton.style.border = 'none';
-					hideButton.style.borderRadius = '0.25rem';
-					hideButton.style.cursor = 'pointer';
-					hideButton.onclick = hideLoadingScreen;
-					appLoading.appendChild(hideButton);
-				}
-			}, 8000);
+				hideLoadingScreen();
+				showContent();
+			}, 3000);
 
 			function hideLoadingScreen() {
 				const appLoading = document.getElementById('appLoading');
@@ -206,6 +129,14 @@
 							appLoading.style.display = 'none';
 						}
 					}, 600);
+				}
+			}
+
+			function showContent() {
+				const content = document.getElementById('sveltekit-body');
+				if (content) {
+					content.classList.add('visible');
+					console.log('Content shown');
 				}
 			}
 		</script>
