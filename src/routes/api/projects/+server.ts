@@ -4,8 +4,35 @@ import { json } from '@sveltejs/kit';
 
 const isProduction = process.env.NODE_ENV === 'production';
 
+interface Project {
+  id: string;
+  title: string;
+  description: string;
+  thumbnail?: string;
+  technologies?: string[];
+  githubUrl?: string;
+  liveUrl?: string;
+  body: string;
+}
+
+interface ProjectEdge {
+  node: Project;
+}
+
+interface ProjectConnection {
+  data: {
+    projectConnection: {
+      edges: ProjectEdge[];
+    };
+  };
+}
+
+const apiUrl = isProduction
+  ? 'https://content.tinajs.io/content/2c3c6f09-7aaa-4a67-9656-8b3c92d80ad2'
+  : 'http://localhost:4001/graphql';
+
 const client = createClient({
-  apiUrl: isProduction ? 'https://content.tinajs.io/content/2c3c6f09-7aaa-4a67-9656-8b3c92d80ad2' : 'http://localhost:4001/graphql',
+  apiUrl,
   clientId: env.TINA_CLIENT_ID || '',
   tinaGraphQLVersion: '1.0.0'
 });
@@ -31,7 +58,7 @@ export async function GET() {
       }
     `;
 
-    const response = await fetch(client.apiUrl, {
+    const response = await fetch(apiUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -42,15 +69,15 @@ export async function GET() {
       })
     });
 
-    const projectsResponse = await response.json();
+    const projectsResponse = (await response.json()) as ProjectConnection;
     console.log('API Response:', projectsResponse);
 
-    if (projectsResponse.errors) {
+    if ('errors' in projectsResponse) {
       console.error('GraphQL Errors:', projectsResponse.errors);
       return json({ error: 'Failed to fetch projects' }, { status: 500 });
     }
 
-    const projects = projectsResponse.data.projectConnection.edges.map(edge => edge.node);
+    const projects = projectsResponse.data.projectConnection.edges.map((edge: ProjectEdge) => edge.node);
     console.log('Processed Projects:', projects);
     return json(projects);
   } catch (error) {

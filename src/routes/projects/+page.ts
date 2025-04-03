@@ -1,8 +1,19 @@
 import type { PageLoad } from './$types';
 
-export const load: PageLoad = async ({ fetch }) => {
+interface Project {
+  id: string;
+  title: string;
+  description: string;
+  thumbnail?: string;
+  technologies?: string[];
+  githubUrl?: string;
+  liveUrl?: string;
+  body: string;
+}
+
+export const load: PageLoad = async ({ fetch }): Promise<{ projects: Project[] }> => {
   const response = await fetch('/api/projects');
-  const projects = await response.json();
+  const projects: Project[] = await response.json();
   return {
     projects
   };

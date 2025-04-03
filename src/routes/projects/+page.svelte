@@ -1,5 +1,20 @@
 <script lang="ts">
-  export let data;
+  interface Project {
+    id: string;
+    title: string;
+    description: string;
+    thumbnail?: string;
+    technologies?: string[];
+    githubUrl?: string;
+    liveUrl?: string;
+    body: string;
+  }
+
+  interface PageData {
+    projects: Project[];
+  }
+
+  export let data: PageData;
   console.log('Page Data:', data);
 </script>
 
