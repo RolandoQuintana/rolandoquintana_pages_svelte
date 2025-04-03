@@ -14,17 +14,13 @@ const config = {
 			strict: true
 		}),
 		paths: {
-			base: ''  // Use empty string for custom domain
+			base: '',  // Use empty string for custom domain
+			relative: false
 		},
 		appDir: 'app',
 		prerender: {
-			handleHttpError: ({ path, referrer, message }) => {
-				// Ignore static asset 404s since they'll be available after build
-				if (path.startsWith('/static/')) {
-					return;
-				}
-				throw new Error(message);
-			}
+			entries: ['*'],
+			handleHttpError: 'warn'
 		}
 	}
 };

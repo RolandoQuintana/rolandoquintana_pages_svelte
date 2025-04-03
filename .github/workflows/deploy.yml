@@ -14,8 +14,13 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          persist-credentials: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
           node-version: '20'
           cache: 'npm'
@@ -28,11 +33,14 @@ jobs:
           npm run build
           cp CNAME build/
           touch build/.nojekyll
+          # Create an empty commit message to be used in the gh-pages branch
+          echo "Build from $(git rev-parse --short HEAD) - $(date)" > build/commit-message.txt
 
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build
-          force_orphan: true
-          cname: rolandoquintana.com
+          branch: gh-pages
+          folder: build
+          clean: true
+          clean-exclude: |
+            CNAME

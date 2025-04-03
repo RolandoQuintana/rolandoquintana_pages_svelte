@@ -56,16 +56,32 @@
 			}
 		</style>
 
-		<!-- Special GitHub Pages fix for SvelteKit -->
+		<!-- GitHub Pages Path Fix -->
 		<script>
-			// Fix for base URLs in GitHub Pages and custom domains
+			// Fix for GitHub Pages path issues
 			(function() {
-				// Fix paths if needed
-				const pathSegmentsToKeep = 0; // Adjust if deploying to a subpath
+				// For GitHub Pages deployment
+				window.__sveltekit_4mj0db = {
+					base: new URL(document.baseURI).pathname.slice(0, -1),
+					env: {}
+				};
 
-				const l = window.location;
-				const url = l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '');
-				window.__sveltekit_base = '/';
+				// Fix paths for module scripts
+				document.addEventListener('DOMContentLoaded', () => {
+					const base = window.__sveltekit_4mj0db.base || '';
+
+					// Fix relative paths in scripts and links
+					document.querySelectorAll('script[src^="/"], link[href^="/"]').forEach(el => {
+						const attr = el.hasAttribute('src') ? 'src' : 'href';
+						const value = el.getAttribute(attr);
+						if (value && value.startsWith('/') && !value.startsWith('//') && !value.startsWith('https://') && !value.startsWith('http://')) {
+							// Remove leading slash to make it relative
+							if (value.startsWith('/app/') || value.startsWith('/assets/') || value.startsWith('/_app/')) {
+								el.setAttribute(attr, value.substring(1));
+							}
+						}
+					});
+				});
 			})();
 		</script>
 
