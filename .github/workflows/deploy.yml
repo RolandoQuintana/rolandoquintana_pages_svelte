@@ -26,7 +26,7 @@ jobs:
       - name: Build
         run: |
           npm run build
-          cp -r static/* build/
+          cp CNAME build/
           touch build/.nojekyll
 
       - name: Deploy to GitHub Pages

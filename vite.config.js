@@ -5,7 +5,7 @@ const dev = process.env.NODE_ENV !== 'production';
 
 export default defineConfig({
 	plugins: [sveltekit()],
-	base: '/',
+	base: '',  // Empty string for custom domain
 	server: {
 		fs: {
 			// Allow serving files from one level up the project root

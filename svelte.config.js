@@ -14,7 +14,7 @@ const config = {
 			strict: true
 		}),
 		paths: {
-			base: process.env.NODE_ENV === 'production' ? '' : ''
+			base: ''  // Use empty string for custom domain
 		},
 		appDir: 'app',
 		prerender: {
