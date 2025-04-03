@@ -15,6 +15,15 @@ const config = {
 		}),
 		paths: {
 			base: '/rolandoquintana_pages_svelte'
+		},
+		prerender: {
+			handleHttpError: ({ path, referrer, message }) => {
+				// Ignore static asset 404s since they'll be available after build
+				if (path.startsWith('/static/')) {
+					return;
+				}
+				throw new Error(message);
+			}
 		}
 	}
 };
