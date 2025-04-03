@@ -10,6 +10,8 @@
     };
 
     window.addEventListener('scroll', handleScroll);
+    // Initial check
+    handleScroll();
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
@@ -18,9 +20,6 @@
 </script>
 
 <nav class:scrolled={isScrolled}>
-  <div class="logo">
-    <a href="{base}/">RQ</a>
-  </div>
   <ul class="nav-links">
     <li><a href="{base}/#welcome">Home</a></li>
     <li><a href="{base}/#projects">Projects</a></li>
@@ -35,32 +34,30 @@
     position: fixed;
     top: 0;
     left: 0;
+    right: 0;
     width: 100%;
     padding: 1.5rem 2rem;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    z-index: 100;
-    transition: background-color 0.3s ease, padding 0.3s ease;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
   }
 
   nav.scrolled {
     background-color: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(10px);
     padding: 1rem 2rem;
-  }
-
-  .logo a {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--secondary-color);
-    text-decoration: none;
   }
 
   .nav-links {
     display: flex;
     gap: 2rem;
     list-style: none;
+    margin: 0;
+    padding: 0;
   }
 
   .nav-links a {

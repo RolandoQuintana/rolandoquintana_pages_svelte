@@ -4,9 +4,7 @@
   import GradientCard from '$lib/components/GradientCard.svelte';
   import Navbar from '$lib/components/Navbar.svelte';
   import ScrambleText from '$lib/components/ScrambleText.svelte';
-  import { fade } from 'svelte/transition';
 
-  let showContent = false;
   let currentSlideIndex = 0;
   let slideKey = 0;
 
@@ -38,8 +36,8 @@
   let intervalId: ReturnType<typeof setInterval>;
 
   onMount(() => {
-    showContent = true;
     startSlideshow();
+    console.log('Page component mounted');
   });
 
   function startSlideshow() {
@@ -67,14 +65,7 @@
   <meta name="description" content="Personal portfolio of Rolando Quintana" />
 </svelte:head>
 
-<div class="splash-screen" class:hidden={showContent}>
-  <div class="splash-content">
-    <h1>Rolando Quintana</h1>
-    <div class="loading-bar"></div>
-  </div>
-</div>
-
-<main class:visible={showContent}>
+<main>
   <Navbar />
 
   <section id="welcome" class="hero">
@@ -203,14 +194,12 @@
   }
 
   main {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-  }
-
-  main.visible {
+    /* Remove the initial opacity and transform */
     opacity: 1;
-    transform: translateY(0);
+    transform: none;
+    display: block;
+    position: relative;
+    z-index: 1;
   }
 
   section {

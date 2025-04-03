@@ -7,7 +7,7 @@
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-		<base href="/rolandoquintana_pages_svelte/">
+		<!-- Using SvelteKit's base path instead of hardcoded base href -->
 
 		<!-- Custom loading state -->
 		<style>
@@ -21,12 +21,16 @@
 				justify-content: center;
 				flex-direction: column;
 				opacity: 1;
-				transition: opacity 0.5s ease;
+				transition: opacity 0.5s ease, visibility 0.5s ease;
 				font-family: 'Space Grotesk', sans-serif;
+				z-index: 10000;
+				visibility: visible;
 			}
 			.app-loading.hidden {
 				opacity: 0;
 				pointer-events: none;
+				visibility: hidden;
+				display: none;
 			}
 			.app-loading h1 {
 				font-size: 2.5rem;
@@ -44,6 +48,13 @@
 				0% { transform: translateX(-100%); }
 				100% { transform: translateX(100%); }
 			}
+			#sveltekit-body {
+				opacity: 0;
+				transition: opacity 0.5s ease;
+			}
+			#sveltekit-body.visible {
+				opacity: 1;
+			}
 		</style>
 		%sveltekit.head%
 	</head>
@@ -55,15 +66,52 @@
 			<div class="loader"></div>
 		</div>
 
-		<div style="display: contents">%sveltekit.body%</div>
+		<div id="sveltekit-body">%sveltekit.body%</div>
 
 		<script>
 			// Hide loading screen when app is initialized
 			window.addEventListener('sveltekit:start', () => {
-				setTimeout(() => {
-					document.getElementById('appLoading').classList.add('hidden');
-				}, 500);
+				console.log('SvelteKit started event received');
+				hideLoadingScreen();
+				showContent();
 			});
+
+			// Hide loading screen and show content immediately for development
+			document.addEventListener('DOMContentLoaded', () => {
+				setTimeout(() => {
+					hideLoadingScreen();
+					showContent();
+				}, 1000);
+			});
+
+			// Also hide loading screen after a fixed timeout as fallback
+			setTimeout(() => {
+				hideLoadingScreen();
+				showContent();
+			}, 3000);
+
+			function hideLoadingScreen() {
+				const appLoading = document.getElementById('appLoading');
+				if (appLoading && !appLoading.classList.contains('hidden')) {
+					appLoading.classList.add('hidden');
+					console.log('Loading screen hidden');
+
+					// Force hide after transition
+					setTimeout(() => {
+						if (appLoading) {
+							appLoading.style.display = 'none';
+						}
+					}, 600);
+				}
+			}
+
+			function showContent() {
+				const content = document.getElementById('sveltekit-body');
+				if (content) {
+					content.classList.add('visible');
+					console.log('Content shown');
+				}
+			}
 		</script>
 	</body>
 </html>
