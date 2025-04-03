@@ -14,7 +14,7 @@ const config = {
 			strict: true
 		}),
 		paths: {
-			base: '/rolandoquintana_pages_svelte'
+			base: ''
 		},
 		prerender: {
 			handleHttpError: ({ path, referrer, message }) => {
