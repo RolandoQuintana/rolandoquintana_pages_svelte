@@ -15,9 +15,9 @@ const config = {
 			// default options are shown
 			pages: 'docs',
 			assets: 'docs',
-			fallback: 'index.html',
+			fallback: '404.html',
 			precompress: false,
-			strict: false
+			strict: true
 		}),
 		paths: {
 			// Use empty base path for development, and the GitHub Pages path for production

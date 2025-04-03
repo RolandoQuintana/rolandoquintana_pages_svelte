@@ -1,6 +1,6 @@
 <script>
   import '../app.css';
-  import '$lib/styles/global.css';
+  import { base } from '$app/paths';
 </script>
 
 <div class="min-h-screen bg-gray-50">
@@ -8,10 +8,10 @@
     <div class="max-w-4xl mx-auto px-4">
       <div class="flex justify-between h-16">
         <div class="flex">
-          <a href="/" class="flex items-center text-gray-900 hover:text-gray-600">
+          <a href="{base}/" class="flex items-center text-gray-900 hover:text-gray-600">
             Home
           </a>
-          <a href="/projects" class="flex items-center ml-8 text-gray-900 hover:text-gray-600">
+          <a href="{base}/projects" class="flex items-center ml-8 text-gray-900 hover:text-gray-600">
             Projects
           </a>
         </div>
