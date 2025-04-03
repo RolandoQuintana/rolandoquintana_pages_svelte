@@ -4,14 +4,14 @@
 	"version": "0.0.1",
 	"type": "module",
 	"scripts": {
-		"dev": "NODE_ENV=development vite dev",
-		"build": "NODE_ENV=production vite build",
+		"dev": "vite dev",
+		"build": "vite build",
 		"deploy": "npm run build && touch docs/.nojekyll",
 		"deploy:github": "npm run deploy && git add . && git commit -m \"Deploy to GitHub Pages\" && git push origin main",
 		"preview": "vite preview",
 		"prepare": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-		"check": "svelte-check --tsconfig ./tsconfig.json",
-		"check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
+		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"tina": "tinacms dev -c \"npm run dev\""
 	},
 	"devDependencies": {

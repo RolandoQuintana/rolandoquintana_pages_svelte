@@ -12,15 +12,14 @@ const config = {
 	kit: {
 		// adapter-auto only supports some environments, see https://kit.svelte.dev/docs/adapters
 		adapter: adapter({
-			// default options are shown
-			pages: 'docs',
-			assets: 'docs',
-			fallback: '404.html',
+			pages: 'build',
+			assets: 'build',
+			fallback: 'index.html',
 			precompress: false,
 			strict: true
 		}),
 		paths: {
-			base: ''  // Empty base path since we're using a custom domain
+			relative: false
 		},
 		prerender: {
 			handleMissingId: 'ignore'
