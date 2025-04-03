@@ -7,7 +7,6 @@
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-		<!-- Using SvelteKit's base path instead of hardcoded base href -->
 
 		<!-- Custom loading state -->
 		<style>
@@ -56,6 +55,20 @@
 				opacity: 1;
 			}
 		</style>
+
+		<!-- Special GitHub Pages fix for SvelteKit -->
+		<script>
+			// Fix for base URLs in GitHub Pages and custom domains
+			(function() {
+				// Fix paths if needed
+				const pathSegmentsToKeep = 0; // Adjust if deploying to a subpath
+
+				const l = window.location;
+				const url = l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '');
+				window.__sveltekit_base = '/';
+			})();
+		</script>
+
 		%sveltekit.head%
 	</head>
 	<body data-sveltekit-preload-data="hover">
@@ -66,7 +79,9 @@
 			<div class="loader"></div>
 		</div>
 
-		<div id="sveltekit-body">%sveltekit.body%</div>
+		<div id="sveltekit-body">
+			%sveltekit.body%
+		</div>
 
 		<script>
 			// Hide loading screen when app is initialized
