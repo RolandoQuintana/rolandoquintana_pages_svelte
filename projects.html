@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" href="./favicon.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+		<!-- Custom loading state -->
+		<style>
+			.app-loading {
+				position: fixed;
+				inset: 0;
+				background: #000;
+				color: #fff;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				flex-direction: column;
+				opacity: 1;
+				transition: opacity 0.5s ease, visibility 0.5s ease;
+				font-family: 'Space Grotesk', sans-serif;
+				z-index: 10000;
+				visibility: visible;
+			}
+			.app-loading.hidden {
+				opacity: 0;
+				pointer-events: none;
+				visibility: hidden;
+				display: none;
+			}
+			.app-loading h1 {
+				font-size: 2.5rem;
+				color: #00FFA3;
+				margin-bottom: 1rem;
+			}
+			.app-loading .loader {
+				width: 200px;
+				height: 2px;
+				background: linear-gradient(90deg, transparent, #00FFA3, transparent);
+				margin-top: 1rem;
+				animation: loading 1.5s infinite;
+			}
+			@keyframes loading {
+				0% { transform: translateX(-100%); }
+				100% { transform: translateX(100%); }
+			}
+			#sveltekit-body {
+				opacity: 0;
+				transition: opacity 0.5s ease;
+			}
+			#sveltekit-body.visible {
+				opacity: 1;
+			}
+		</style>
+
+		<!-- Special GitHub Pages fix for SvelteKit -->
+		<script>
+			// Fix for base URLs in GitHub Pages and custom domains
+			(function() {
+				// Fix paths if needed
+				const pathSegmentsToKeep = 0; // Adjust if deploying to a subpath
+
+				const l = window.location;
+				const url = l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '');
+				window.__sveltekit_base = '/';
+			})();
+		</script>
+
+		
+		<link rel="modulepreload" href="./app/immutable/entry/start.XE--eMep.js">
+		<link rel="modulepreload" href="./app/immutable/chunks/LR2qMEGc.js">
+		<link rel="modulepreload" href="./app/immutable/chunks/PnnhTR1n.js">
+		<link rel="modulepreload" href="./app/immutable/chunks/DlR0HnoD.js">
+		<link rel="modulepreload" href="./app/immutable/chunks/DOb-dD7c.js">
+		<link rel="modulepreload" href="./app/immutable/entry/app.cIgVQ_E0.js">
+		<link rel="modulepreload" href="./app/immutable/chunks/37N145I3.js">
+		<link rel="modulepreload" href="./app/immutable/chunks/BmGAwbIF.js">
+		<link rel="modulepreload" href="./app/immutable/chunks/Df4TK-ij.js">
+		<link rel="modulepreload" href="./app/immutable/chunks/CGMvn63C.js">
+	</head>
+	<body data-sveltekit-preload-data="hover">
+		<!-- Loading state (will be hidden when app loads) -->
+		<div class="app-loading" id="appLoading">
+			<h1>Rolando Quintana</h1>
+			<p>Loading portfolio...</p>
+			<div class="loader"></div>
+		</div>
+
+		<div id="sveltekit-body">
+			
+			<script>
+				{
+					__sveltekit_168llu8 = {
+						base: new URL(".", location).pathname.slice(0, -1)
+					};
+
+					const element = document.currentScript.parentElement;
+
+					Promise.all([
+						import("./app/immutable/entry/start.XE--eMep.js"),
+						import("./app/immutable/entry/app.cIgVQ_E0.js")
+					]).then(([kit, app]) => {
+						kit.start(app, element);
+					});
+				}
+			</script>
+		
+		</div>
+
+		<script>
+			// Hide loading screen when app is initialized
+			window.addEventListener('sveltekit:start', () => {
+				console.log('SvelteKit started event received');
+				hideLoadingScreen();
+				showContent();
+			});
+
+			// Hide loading screen and show content immediately for development
+			document.addEventListener('DOMContentLoaded', () => {
+				setTimeout(() => {
+					hideLoadingScreen();
+					showContent();
+				}, 1000);
+			});
+
+			// Also hide loading screen after a fixed timeout as fallback
+			setTimeout(() => {
+				hideLoadingScreen();
+				showContent();
+			}, 3000);
+
+			function hideLoadingScreen() {
+				const appLoading = document.getElementById('appLoading');
+				if (appLoading && !appLoading.classList.contains('hidden')) {
+					appLoading.classList.add('hidden');
+					console.log('Loading screen hidden');
+
+					// Force hide after transition
+					setTimeout(() => {
+						if (appLoading) {
+							appLoading.style.display = 'none';
+						}
+					}, 600);
+				}
+			}
+
+			function showContent() {
+				const content = document.getElementById('sveltekit-body');
+				if (content) {
+					content.classList.add('visible');
+					console.log('Content shown');
+				}
+			}
+		</script>
+	</body>
+</html>
