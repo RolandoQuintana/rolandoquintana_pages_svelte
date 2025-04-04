@@ -232,7 +232,7 @@
     position: relative;
     z-index: 1;
     padding-left: clamp(2rem, 5vw, 6%);
-    padding-top: 25vh;
+    padding-top: 30vh;
     height: 100%;
     width: 100%;
     max-width: 1600px;

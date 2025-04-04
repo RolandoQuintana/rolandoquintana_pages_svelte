@@ -45,16 +45,6 @@
 </svelte:head>
 
 <div class="flex flex-col min-h-screen">
-  <nav class="p-4 bg-gray-800 text-white">
-    <div class="max-w-6xl mx-auto flex items-center justify-between">
-      <a href="{base}/" class="text-xl font-bold hover:text-gray-300">Rolando Quintana</a>
-      <ul class="flex space-x-4">
-        <li><a href="{base}/" class="hover:text-gray-300">Home</a></li>
-        <li><a href="{base}/projects" class="hover:text-gray-300">Projects</a></li>
-      </ul>
-    </div>
-  </nav>
-
   <main class="flex-1">
     <slot />
   </main>

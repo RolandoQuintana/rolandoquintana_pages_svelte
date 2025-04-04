@@ -32,11 +32,11 @@
 <style>
   nav {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    padding: 1.5rem 2rem;
+    top: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: auto;
+    padding: 1rem 2rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -45,11 +45,12 @@
     background-color: rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
+    border-radius: 2rem;
   }
 
   nav.scrolled {
     background-color: rgba(0, 0, 0, 0.8);
-    padding: 1rem 2rem;
+    padding: 0.75rem 2rem;
   }
 
   .nav-links {
