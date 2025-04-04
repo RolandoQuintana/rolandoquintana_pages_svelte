@@ -2,11 +2,14 @@
   import { onMount, onDestroy } from 'svelte';
   import { base } from '$app/paths';
   import GradientCard from '$lib/components/GradientCard.svelte';
+  import ProjectCard from '$lib/components/ProjectCard.svelte';
   import Navbar from '$lib/components/Navbar.svelte';
   import ScrambleText from '$lib/components/ScrambleText.svelte';
 
   let currentSlideIndex = 0;
   let slideKey = 0;
+  let activeDescriptionIndex = 0;
+  let observer: IntersectionObserver;
 
   // Hero section slides
   const heroSlides = [
@@ -37,7 +40,8 @@
 
   onMount(() => {
     startSlideshow();
-    console.log('Page component mounted');
+    setupProjectObserver();
+    console.log('Initial activeDescriptionIndex:', activeDescriptionIndex);
   });
 
   function startSlideshow() {
@@ -49,8 +53,40 @@
     }, 5000);
   }
 
+  function setupProjectObserver() {
+    const options = {
+      root: null,
+      rootMargin: '-40% 0px',
+      threshold: [0, 0.25, 0.5, 0.75, 1.0]
+    };
+
+    observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+          const card = entry.target;
+          const parent = card.parentElement;
+          if (parent) {
+            const index = Array.from(parent.children).indexOf(card);
+            console.log('Card in view:', index, 'ratio:', entry.intersectionRatio);
+            activeDescriptionIndex = index;
+          }
+        }
+      });
+    }, options);
+
+    // Wait for DOM to be ready
+    setTimeout(() => {
+      const projectCards = document.querySelectorAll('[data-card]');
+      console.log('Found project cards:', projectCards.length);
+      projectCards.forEach((card) => {
+        observer.observe(card);
+      });
+    }, 100);
+  }
+
   onDestroy(() => {
     if (intervalId) clearInterval(intervalId);
+    if (observer) observer.disconnect();
   });
 
   // Force a re-render of the ScrambleText component when slides change
@@ -58,6 +94,11 @@
 
   // Add a key to force component re-render
   $: currentSlideKey = currentSlideIndex;
+
+  // Watch for changes in activeDescriptionIndex
+  $: {
+    console.log('activeDescriptionIndex changed to:', activeDescriptionIndex);
+  }
 </script>
 
 <svelte:head>
@@ -95,22 +136,41 @@
 
   <section id="projects" class="projects">
     <h2>Projects</h2>
-    <div class="projects-grid">
-      <GradientCard
-        title="Project 1"
-        description="Description of your first project"
-        link="#"
-      />
-      <GradientCard
-        title="Project 2"
-        description="Description of your second project"
-        link="#"
-      />
-      <GradientCard
-        title="Project 3"
-        description="Description of your third project"
-        link="#"
-      />
+    <div class="projects-container">
+      <div class="project-description">
+        <div class="description-content" class:active={activeDescriptionIndex === 0}>
+          <h3>Beautiful Digital Experiences</h3>
+        </div>
+        <div class="description-content" class:active={activeDescriptionIndex === 1}>
+          <h3>AI-Powered Productivity</h3>
+        </div>
+        <div class="description-content" class:active={activeDescriptionIndex === 2}>
+          <h3>Data Made Clear</h3>
+        </div>
+      </div>
+      <div class="project-cards">
+        <ProjectCard
+          title="Flutter Portfolio"
+          description="A modern, responsive portfolio website built with Flutter and Firebase, showcasing clean design and smooth animations."
+          link="#"
+          imageUrl="/project1.jpg"
+          technologies={['Flutter', 'Firebase', 'Dart']}
+        />
+        <ProjectCard
+          title="Task Manager Pro"
+          description="An innovative mobile app that revolutionizes how users interact with their daily tasks, featuring AI-powered scheduling."
+          link="#"
+          imageUrl="/project2.jpg"
+          technologies={['React Native', 'TypeScript', 'Node.js']}
+        />
+        <ProjectCard
+          title="Data Insights"
+          description="A cutting-edge AI-powered analytics platform that transforms complex data into actionable insights through interactive visualizations."
+          link="#"
+          imageUrl="/project3.jpg"
+          technologies={['Python', 'TensorFlow', 'React']}
+        />
+      </div>
     </div>
   </section>
 
@@ -295,11 +355,84 @@
     opacity: 0.8;
   }
 
-  .projects-grid {
+  .projects-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(clamp(250px, 30vw, 300px), 1fr));
-    gap: clamp(1rem, 3vw, 2rem);
-    margin-top: clamp(1.5rem, 3vw, 2rem);
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    margin-top: 2rem;
+    position: relative;
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+    align-items: start;
+  }
+
+  .project-description {
+    position: sticky;
+    top: 20vh;
+    height: 60vh;
+    padding-right: 2rem;
+  }
+
+  .description-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+  }
+
+  .description-content.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .description-content h3 {
+    font-size: clamp(3rem, 5vw, 4.5rem);
+    color: var(--secondary-color);
+    margin: 0;
+    line-height: 1.1;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    max-width: 12ch;
+  }
+
+  .description-content p {
+    font-size: clamp(1.25rem, 2vw, 1.5rem);
+    line-height: 1.3;
+    margin: 0;
+    opacity: 0.8;
+    font-weight: 300;
+    max-width: 25ch;
+  }
+
+  .tech-stack {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .tech-tag {
+    padding: 0.5rem 1rem;
+    background: rgba(0, 255, 163, 0.1);
+    border: 1px solid rgba(0, 255, 163, 0.3);
+    border-radius: 1rem;
+    color: var(--secondary-color);
+    font-size: 0.875rem;
+  }
+
+  .project-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 20vh 0;
   }
 
   .contact-content {
@@ -415,6 +548,19 @@
     .subtitle {
       max-width: 450px;
     }
+
+    .projects-container {
+      grid-template-columns: 1fr;
+    }
+
+    .project-description {
+      display: none;
+    }
+
+    .project-cards {
+      gap: 2rem;
+      padding: 0;
+    }
   }
 
   @media (max-width: 768px) {
@@ -454,7 +600,7 @@
       max-width: 350px;
     }
 
-    .projects-grid {
+    .projects-container {
       grid-template-columns: 1fr;
     }
 

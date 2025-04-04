@@ -9,15 +9,21 @@
   $: processedLink = link.startsWith('/') ? `${base}${link}` : link;
 </script>
 
-<div class="card">
-  <div class="card-content">
-    <h3>{title}</h3>
-    <p>{description}</p>
-    <a href={processedLink} class="card-link">View Project</a>
+<div class="gradient-card" data-card>
+  <div class="card">
+    <div class="card-content">
+      <h3>{title}</h3>
+      <p>{description}</p>
+      <a href={processedLink} class="card-link">View Project</a>
+    </div>
   </div>
 </div>
 
 <style>
+  .gradient-card {
+    margin-bottom: 1rem;
+  }
+
   .card {
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
