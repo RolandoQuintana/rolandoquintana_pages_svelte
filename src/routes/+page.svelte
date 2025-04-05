@@ -135,7 +135,7 @@
   </section>
 
   <section id="projects" class="projects">
-    <h2>Projects</h2>
+    <span class="identifier">• 002 PROJECTS</span>
     <div class="projects-container">
       <div class="project-description">
         <div class="description-content" class:active={activeDescriptionIndex === 0}>
@@ -175,12 +175,104 @@
   </section>
 
   <section id="experience" class="experience">
-    <h2>Experience</h2>
-    <!-- Add experience content -->
+    <span class="identifier">• 003 EXPERIENCE</span>
+    <div class="experience-grid">
+      <div class="gradient-card" data-card>
+        <div class="card">
+          <div class="card-content">
+            <div class="experience-header">
+              <span class="role highlight">Software Engineer</span>
+              <h3>alphaMountain</h3>
+              <span class="duration">May 2024 - Present</span>
+            </div>
+            <ul class="experience-list">
+              <li>Reconstructed a company Chrome extension with <span class="highlight">over 10,000 users</span> to support the new Chrome Manifest V3 requirements. My solution solved the notorious problem of WebRequestBlocking deprecation.</li>
+              <li>Created custom Support API that our clients use to submit disputes on domains programmatically -- <span class="highlight">0 to 1</span>.</li>
+              <li>Worked on upgrading internal tools used by the company, which were built on Express.js with a Postgresql database.</li>
+            </ul>
+            <div class="tech-stack">
+              <span class="tech-tag">JavaScript</span>
+              <span class="tech-tag">Python</span>
+              <span class="tech-tag">AWS Lambda</span>
+              <span class="tech-tag">Express.js</span>
+              <span class="tech-tag">PostgreSQL</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gradient-card" data-card>
+        <div class="card">
+          <div class="card-content">
+            <div class="experience-header">
+              <span class="role highlight">Digital Design Intern</span>
+              <h3>Texas Instruments</h3>
+              <span class="duration">May 2023 - August 2023</span>
+            </div>
+            <ul class="experience-list">
+              <li>Worked on a team to create comprehensive testing suites for Analog Signal Chain products. Tests were for RTL and GLS.</li>
+              <li>Created several Python Scripts to automate the creation of predictable Verilog files (i.e., x detection and glitch detection files)</li>
+            </ul>
+            <div class="tech-stack">
+              <span class="tech-tag">Python</span>
+              <span class="tech-tag">Verilog</span>
+              <span class="tech-tag">Cadence Suite</span>
+              <span class="tech-tag">RTL</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gradient-card" data-card>
+        <div class="card">
+          <div class="card-content">
+            <div class="experience-header">
+              <span class="role highlight">Back-End Intern</span>
+              <h3>TravelPass Group</h3>
+              <span class="duration">June 2022 - August 2022</span>
+            </div>
+            <ul class="experience-list">
+              <li>Used Python on Django to build a tool for the finance team that helped save them <span class="highlight">hours a day</span> from doing work that could be automated</li>
+              <li>Mentored by one of TravelPass's back-end teams to learn Elixir on Phoenix. Built a project that the DevOps team would use to test their deployment</li>
+              <li>Worked on a team with other interns to automate a MySQL database to make part of the Gross Profit report more accessible to the executive board</li>
+            </ul>
+            <div class="tech-stack">
+              <span class="tech-tag">Python</span>
+              <span class="tech-tag">Django</span>
+              <span class="tech-tag">Elixir</span>
+              <span class="tech-tag">Phoenix</span>
+              <span class="tech-tag">MySQL</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gradient-card" data-card>
+        <div class="card">
+          <div class="card-content">
+            <div class="experience-header">
+              <span class="role highlight">Firmware Intern</span>
+              <h3>Cirque</h3>
+              <span class="duration">June 2021 - August 2021</span>
+            </div>
+            <ul class="experience-list">
+              <li>Used C++ to create an API employed for testing an HID device. This included various projects such as writing unit tests to view and change settings and building a custom I2C Library to stress the I2C interface</li>
+              <li>Helped organize the Confluence database according to different projects of the Cirque Teams</li>
+            </ul>
+            <div class="tech-stack">
+              <span class="tech-tag">C++</span>
+              <span class="tech-tag">I2C</span>
+              <span class="tech-tag">HID</span>
+              <span class="tech-tag">Confluence</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 
   <section id="about" class="about">
-    <h2>About</h2>
+    <span class="identifier">• 004 ABOUT</span>
     <div class="about-content">
       <div class="about-text">
         <p>
@@ -206,7 +298,7 @@
   </section>
 
   <section id="contact" class="contact">
-    <h2>Get in Touch</h2>
+    <span class="identifier">• 005 CONTACT</span>
     <div class="contact-content glass">
       <p>I'm always open to new opportunities and collaborations.</p>
       <div class="social-links">
@@ -503,15 +595,138 @@
     font-size: clamp(0.75rem, 1.5vw, 0.875rem);
   }
 
-@media (min-width: 2000px) {
+  .experience-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 2rem;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .gradient-card {
+    margin-bottom: 1rem;
+  }
+
+  .card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1rem;
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(45deg, rgba(0, 255, 163, 0.2), transparent);
+    border-radius: 1rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  .card:hover::before {
+    opacity: 1;
+  }
+
+  .card-content {
+    padding: clamp(1.5rem, 3vw, 2rem);
+    position: relative;
+    z-index: 2;
+  }
+
+  .experience-header {
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .role {
+    display: block;
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .role.highlight {
+    color: var(--secondary-color);
+  }
+
+  .experience-header h3 {
+    color: var(--text-color);
+    margin-bottom: 0.25rem;
+    opacity: 0.8;
+    font-size: 1rem;
+  }
+
+  .duration {
+    display: block;
+    font-size: 0.9rem;
+    opacity: 0.7;
+  }
+
+  .experience-list {
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 1.5rem;
+  }
+
+  .experience-list li {
+    margin-bottom: 1rem;
+    position: relative;
+    padding-left: 1.5rem;
+    opacity: 0.8;
+  }
+
+  .experience-list li::before {
+    content: "•";
+    color: var(--secondary-color);
+    position: absolute;
+    left: 0;
+  }
+
+  .highlight {
+    color: var(--secondary-color);
+    font-weight: 500;
+  }
+
+  .tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tech-tag {
+    padding: 0.25rem 0.75rem;
+    background: rgba(0, 255, 163, 0.1);
+    border: 1px solid rgba(0, 255, 163, 0.3);
+    border-radius: 1rem;
+    color: var(--secondary-color);
+    font-size: 0.875rem;
+    transition: background 0.3s ease;
+  }
+
+  .tech-tag:hover {
+    background: rgba(0, 255, 163, 0.2);
+  }
+
+  @media (min-width: 2000px) {
     .hero {
-        padding: 0 max(2rem, calc((100% - 1600px) / 2));
+      padding: 0 max(2rem, calc((100% - 1600px) / 2));
     }
 
     .hero-content {
-        padding-left: 0;
+      padding-left: 0;
     }
-}
+  }
 
   @media (max-width: 1200px) {
     .hero-background {
@@ -530,10 +745,9 @@
 
   @media (max-width: 1600px) {
     .title-box {
-        height: clamp(100px, 20vw, 240px);
+      height: clamp(100px, 20vw, 240px);
     }
-}
-
+  }
 
   @media (max-width: 992px) {
     .hero-background {
@@ -607,6 +821,10 @@
     .about-content {
       grid-template-columns: 1fr;
     }
+
+    .experience-grid {
+      grid-template-columns: 1fr;
+    }
   }
 
   @media (max-width: 480px) {
@@ -630,8 +848,6 @@
       gap: 1rem;
     }
   }
-
-
 
   .projects, .experience, .about, .contact {
     margin: 0 auto;
