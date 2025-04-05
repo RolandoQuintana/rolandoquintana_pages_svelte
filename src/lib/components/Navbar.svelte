@@ -54,7 +54,6 @@
     <li><a href="{base}/#welcome" class:active={activeSection === 'welcome'}>Home</a></li>
     <li><a href="{base}/#projects" class:active={activeSection === 'projects'}>Projects</a></li>
     <li><a href="{base}/#experience" class:active={activeSection === 'experience'}>Experience</a></li>
-    <li><a href="{base}/#about" class:active={activeSection === 'about'}>About</a></li>
     <li><a href="{base}/#contact" class:active={activeSection === 'contact'}>Contact</a></li>
   </ul>
 </nav>

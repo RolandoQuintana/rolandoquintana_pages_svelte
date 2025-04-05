@@ -22,17 +22,17 @@
       imageUrl: `${base}/slide2.jpg`
     },
     {
-      title: 'TECH\nINNOVATOR.',
+      title: 'COMPUTER\nENGINEER.',
       imageUrl: `${base}/slide3.jpg`
     },
     {
-      title: 'CREATIVE\nTHINKER.',
+      title: 'VIDEOGRAPHY\nDABBLER.',
       imageUrl: `${base}/slide4.jpg`
     }
   ];
 
   // Static subtitle that doesn't change
-  const subtitle = 'Creating innovative solutions through code and design.';
+  const subtitle = 'Hello 👋 I\'m Rolando. I like creating stuff.';
 
   let currentTitle = heroSlides[0].title;
   let currentImageUrl = heroSlides[0].imageUrl;
@@ -271,34 +271,9 @@
     </div>
   </section>
 
-  <section id="about" class="about">
-    <span class="identifier">• 004 ABOUT</span>
-    <div class="about-content">
-      <div class="about-text">
-        <p>
-          I am a software developer with a keen eye for design and a passion for creating seamless user experiences.
-          With expertise in Flutter and modern web technologies, I bring ideas to life through clean,
-          efficient code and intuitive interfaces. test commit
-        </p>
-      </div>
-      <div class="skills">
-        <h3>Skills</h3>
-        <div class="skills-grid">
-          <span class="skill-tag">Flutter</span>
-          <span class="skill-tag">Dart</span>
-          <span class="skill-tag">React</span>
-          <span class="skill-tag">TypeScript</span>
-          <span class="skill-tag">Firebase</span>
-          <span class="skill-tag">Node.js</span>
-          <span class="skill-tag">UI/UX Design</span>
-          <span class="skill-tag">Git</span>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <section id="contact" class="contact">
-    <span class="identifier">• 005 CONTACT</span>
+    <span class="identifier">• 004 CONTACT</span>
     <div class="contact-content glass">
       <p>I'm always open to new opportunities and collaborations.</p>
       <div class="social-links">
@@ -426,6 +401,7 @@
     margin: 0;
     max-width: 550px;
     line-height: 1.4;
+    white-space: pre-line;
   }
 
   .hero-background {
@@ -581,48 +557,6 @@
   .social-link svg {
     width: 1.5rem;
     height: 1.5rem;
-  }
-
-  .about-content {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: clamp(1rem, 3vw, 2rem);
-    margin-top: clamp(1rem, 3vw, 2rem);
-  }
-
-  .about-text {
-    padding: clamp(1rem, 3vw, 2rem);
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 1rem;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
-  .skills {
-    padding: clamp(1rem, 3vw, 2rem);
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 1rem;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
-  .skills h3 {
-    font-size: clamp(1.2rem, 2.5vw, 1.5rem);
-    margin-bottom: clamp(1rem, 2.5vw, 1.5rem);
-    color: var(--secondary-color);
-  }
-
-  .skills-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: clamp(0.3rem, 1vw, 0.5rem);
-  }
-
-  .skill-tag {
-    padding: clamp(0.3rem, 1vw, 0.5rem) clamp(0.7rem, 1.5vw, 1rem);
-    background: rgba(0, 255, 163, 0.1);
-    border: 1px solid rgba(0, 255, 163, 0.3);
-    border-radius: 1rem;
-    color: var(--secondary-color);
-    font-size: clamp(0.75rem, 1.5vw, 0.875rem);
   }
 
   .experience-grid {
@@ -845,10 +779,6 @@
     }
 
     .projects-container {
-      grid-template-columns: 1fr;
-    }
-
-    .about-content {
       grid-template-columns: 1fr;
     }
 
