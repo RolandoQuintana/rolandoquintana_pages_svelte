@@ -2,8 +2,11 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<link rel="icon" href="%sveltekit.assets%/favicon.png" />
+		<link rel="icon" href="%sveltekit.assets%/favicon.svg" type="image/svg+xml" />
+		<link rel="icon" href="%sveltekit.assets%/favicon.png" type="image/png" />
+		<link rel="apple-touch-icon" href="%sveltekit.assets%/favicon.png" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="description" content="Rolando Quintana - Software Engineer Portfolio" />
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -61,6 +64,11 @@
 		<script>
 			// Fix for GitHub Pages path issues
 			(function() {
+				const { pathname } = window.location;
+				if (pathname.startsWith('/rolandoquintana_pages_svelte')) {
+					document.head.innerHTML += `<base href="${pathname}/">`;
+				}
+
 				// For GitHub Pages deployment
 				window.__sveltekit_4mj0db = {
 					base: new URL(document.baseURI).pathname.slice(0, -1),
