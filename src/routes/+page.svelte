@@ -12,6 +12,8 @@
   let observer: IntersectionObserver;
   let isAutoplayPaused = false;
   let autoplayTimeout: ReturnType<typeof setTimeout>;
+  let scrollY = 0;
+  let parallaxOffset = 0;
 
   // Hero section slides
   const heroSlides = [
@@ -43,8 +45,23 @@
   onMount(() => {
     startSlideshow();
     setupProjectObserver();
+    setupParallaxEffect();
     console.log('Initial activeDescriptionIndex:', activeDescriptionIndex);
   });
+
+  function setupParallaxEffect() {
+    // Add scroll event listener
+    window.addEventListener('scroll', handleScroll);
+
+    // Initial calculation
+    handleScroll();
+  }
+
+  function handleScroll() {
+    scrollY = window.scrollY;
+    // Calculate parallax offset - text moves slower than scroll
+    parallaxOffset = scrollY * 0.5; // Adjust this multiplier to control parallax intensity
+  }
 
   function startSlideshow() {
     intervalId = setInterval(() => {
@@ -122,6 +139,7 @@
     if (intervalId) clearInterval(intervalId);
     if (observer) observer.disconnect();
     if (autoplayTimeout) clearTimeout(autoplayTimeout);
+    window.removeEventListener('scroll', handleScroll);
   });
 
   // Force a re-render of the ScrambleText component when slides change
@@ -146,7 +164,7 @@
   <Navbar />
 
   <section id="welcome" class="hero">
-    <div class="hero-content">
+    <div class="hero-content" style="transform: translateY({parallaxOffset}px)">
       <span class="identifier">• 001 ROLANDO D QUINTANA</span>
       <div class="title-box">
         <ScrambleText
