@@ -15,19 +15,19 @@
   const heroSlides = [
     {
       title: 'SOFTWARE\nDEVELOPER.',
-      imageUrl: `${base}/slide1.jpg`
+      imageUrl: `${base}/capman_hero.jpg`
     },
     {
       title: 'PRODUCT\nDESIGNER.',
-      imageUrl: `${base}/slide2.jpg`
+      imageUrl: `${base}/gardian_go_hero.jpg`
     },
     {
       title: 'COMPUTER\nENGINEER.',
-      imageUrl: `${base}/slide3.jpg`
+      imageUrl: `${base}/slide1.jpg`
     },
     {
-      title: 'VIDEOGRAPHY\nDABBLER.',
-      imageUrl: `${base}/slide4.jpg`
+      title: 'WELL FED\nARTIST.',
+      imageUrl: `${base}/saltflats_hero.jpg`
     }
   ];
 
