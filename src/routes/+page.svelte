@@ -139,6 +139,7 @@
 <svelte:head>
   <title>Rolando Quintana - Portfolio</title>
   <meta name="description" content="Personal portfolio of Rolando Quintana" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 </svelte:head>
 
 <main>
