@@ -10,6 +10,8 @@
   let slideKey = 0;
   let activeDescriptionIndex = 0;
   let observer: IntersectionObserver;
+  let isAutoplayPaused = false;
+  let autoplayTimeout: ReturnType<typeof setTimeout>;
 
   // Hero section slides
   const heroSlides = [
@@ -46,11 +48,43 @@
 
   function startSlideshow() {
     intervalId = setInterval(() => {
-      currentSlideIndex = (currentSlideIndex + 1) % heroSlides.length;
-      slideKey++;
-      currentTitle = heroSlides[currentSlideIndex].title;
-      currentImageUrl = heroSlides[currentSlideIndex].imageUrl;
+      if (!isAutoplayPaused) {
+        nextSlide();
+      }
     }, 5000);
+  }
+
+  function nextSlide() {
+    currentSlideIndex = (currentSlideIndex + 1) % heroSlides.length;
+    updateSlide();
+  }
+
+  function prevSlide() {
+    currentSlideIndex = (currentSlideIndex - 1 + heroSlides.length) % heroSlides.length;
+    updateSlide();
+  }
+
+  function goToSlide(index: number) {
+    currentSlideIndex = index;
+    updateSlide();
+  }
+
+  function updateSlide() {
+    slideKey++;
+    currentTitle = heroSlides[currentSlideIndex].title;
+    currentImageUrl = heroSlides[currentSlideIndex].imageUrl;
+  }
+
+  function handleSlideInteraction() {
+    isAutoplayPaused = true;
+
+    // Clear any existing timeout
+    if (autoplayTimeout) clearTimeout(autoplayTimeout);
+
+    // Resume autoplay after 10 seconds of inactivity
+    autoplayTimeout = setTimeout(() => {
+      isAutoplayPaused = false;
+    }, 10000);
   }
 
   function setupProjectObserver() {
@@ -87,6 +121,7 @@
   onDestroy(() => {
     if (intervalId) clearInterval(intervalId);
     if (observer) observer.disconnect();
+    if (autoplayTimeout) clearTimeout(autoplayTimeout);
   });
 
   // Force a re-render of the ScrambleText component when slides change
@@ -131,6 +166,28 @@
           style="background-image: url({slide.imageUrl})"
         ></div>
       {/each}
+    </div>
+    <div class="slide-controls">
+      <button class="control-btn prev" on:click={() => { handleSlideInteraction(); prevSlide(); }} aria-label="Previous slide">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </button>
+      <div class="slide-dots">
+        {#each heroSlides as _, i}
+          <button
+            class="dot"
+            class:active={i === currentSlideIndex}
+            on:click={() => { handleSlideInteraction(); goToSlide(i); }}
+            aria-label={`Go to slide ${i + 1}`}
+          ></button>
+        {/each}
+      </div>
+      <button class="control-btn next" on:click={() => { handleSlideInteraction(); nextSlide(); }} aria-label="Next slide">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
     </div>
   </section>
 
@@ -436,6 +493,65 @@
 
   .slide-image.active {
     opacity: 0.8;
+  }
+
+  .slide-controls {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 0.75rem 1.5rem;
+    border-radius: 2rem;
+    backdrop-filter: blur(5px);
+  }
+
+  .control-btn {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+  }
+
+  .control-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: var(--secondary-color);
+  }
+
+  .control-btn svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  .slide-dots {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .dot.active {
+    background: var(--secondary-color);
+    transform: scale(1.2);
   }
 
   .projects-container {
@@ -785,6 +901,21 @@
     .experience-grid {
       grid-template-columns: 1fr;
     }
+
+    .slide-controls {
+      bottom: 1rem;
+      padding: 0.5rem 1rem;
+    }
+
+    .control-btn {
+      width: 2rem;
+      height: 2rem;
+    }
+
+    .control-btn svg {
+      width: 1rem;
+      height: 1rem;
+    }
   }
 
   @media (max-width: 480px) {
@@ -805,6 +936,10 @@
     }
 
     .social-links {
+      gap: 1rem;
+    }
+
+    .slide-controls {
       gap: 1rem;
     }
   }
