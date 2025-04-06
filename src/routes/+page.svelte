@@ -139,36 +139,36 @@
     <div class="projects-container">
       <div class="project-description">
         <div class="description-content" class:active={activeDescriptionIndex === 0}>
-          <h3>Beautiful Digital Experiences</h3>
+          <h3>Prevent Fahrenheight 451</h3>
         </div>
         <div class="description-content" class:active={activeDescriptionIndex === 1}>
-          <h3>AI-Powered Productivity</h3>
+          <h3>Who doesn't like modular tech?</h3>
         </div>
         <div class="description-content" class:active={activeDescriptionIndex === 2}>
-          <h3>Data Made Clear</h3>
+          <h3>Pls don't sue me</h3>
         </div>
       </div>
       <div class="project-cards">
         <ProjectCard
-          title="Flutter Portfolio"
-          description="A modern, responsive portfolio website built with Flutter and Firebase, showcasing clean design and smooth animations."
-          link="#"
-          imageUrl="/project1.jpg"
-          technologies={['Flutter', 'Firebase', 'Dart']}
+          title="FeedFreed"
+          description="Break free from addictive algorithms while staying connected to the creators and communities you love."
+          link="https://feedfreed.app"
+          imageUrl="/feedfreed_hero.jpg"
+          technologies={['Flutter', 'Dart', 'DOM']}
         />
         <ProjectCard
-          title="Task Manager Pro"
-          description="An innovative mobile app that revolutionizes how users interact with their daily tasks, featuring AI-powered scheduling."
-          link="#"
-          imageUrl="/project2.jpg"
+          title="E-Trivium"
+          description="An innovative clothing eco-system that allows modular technology to be temporarily embedded into the fabric of the clothing."
+          link="https://jessikasalinas.github.io/E-Trivium/"
+          imageUrl="/etrivium_hero.jpg"
           technologies={['React Native', 'TypeScript', 'Node.js']}
         />
         <ProjectCard
-          title="Data Insights"
-          description="A cutting-edge AI-powered analytics platform that transforms complex data into actionable insights through interactive visualizations."
-          link="#"
-          imageUrl="/project3.jpg"
-          technologies={['Python', 'TensorFlow', 'React']}
+          title="Cap Man"
+          description="Definitly not a ripoff of a popular game made from scratch with a custom built CPU, assembly code, and a hat with gyro-sensors to control everything..."
+          link="https://drive.google.com/file/d/1tc_fJnmRhAtzCoM98XKAAi_EcyH6bnrg/view?usp=drive_link"
+          imageUrl="/capman_hero.jpg"
+          technologies={['React', 'TypeScript', 'Node.js']}
         />
       </div>
     </div>

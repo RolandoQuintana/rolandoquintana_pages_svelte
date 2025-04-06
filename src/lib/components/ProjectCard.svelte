@@ -10,6 +10,9 @@
   // Add base path to the link if it's a relative path and doesn't start with #
   $: processedLink = link.startsWith('/') ? `${base}${link}` : link;
   $: processedImageUrl = imageUrl && imageUrl.startsWith('/') ? `${base}${imageUrl}` : imageUrl;
+
+  // Determine if the link is external (not a relative path and not a hash link)
+  $: isExternalLink = !link.startsWith('/') && !link.startsWith('#');
 </script>
 
 <div class="gradient-card" data-card>
@@ -32,7 +35,14 @@
             {/each}
           </div>
         {/if}
-        <a href={processedLink} class="card-link">View Project</a>
+        <a
+          href={processedLink}
+          class="card-link"
+          target={isExternalLink ? "_blank" : undefined}
+          rel={isExternalLink ? "noopener noreferrer" : undefined}
+        >
+          View Project
+        </a>
       </div>
     </div>
   </div>
@@ -93,10 +103,10 @@
     inset: 0;
     background: linear-gradient(
       to bottom,
-      rgba(0, 0, 0, 0) 0%,
-      rgba(0, 0, 0, 0) 50%,
-      rgba(0, 0, 0, 0.7) 80%,
-      rgba(0, 0, 0, 0.8) 100%
+      rgba(0, 0, 0, 0.3) 0%,
+      rgba(0, 0, 0, 0.4) 50%,
+      rgba(0, 0, 0, 0.8) 80%,
+      rgba(0, 0, 0, 0.9) 100%
     );
   }
 
